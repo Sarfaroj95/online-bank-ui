@@ -1,1 +1,35 @@
-<h1 class="mb-4 text-4xl font-bold tracking-tight text-heading md:text-5xl lg:text-6xl p-5 ">Welcome dashboard</h1>
+<div class="flex h-screen w-full overflow-hidden bg-[#f0f4f8]">
+
+  <app-left-menu></app-left-menu>
+
+  <main class="flex-1 overflow-y-auto bg-[#c8fbff]">
+
+
+    <header class="flex justify-between items-center px-8 py-3 bg-white border-b-1 border-gray-400">
+
+      <h1 class="text-xl font-semibold text-[#1e4456]">
+        Hello, Jisan
+      </h1>
+
+      <div class="flex items-center gap-4">
+
+        <div class="flex items-center bg-gray-100 rounded-lg px-3 py-2 w-64 focus-within:bg-gray-200 transition-colors">
+          <span class="material-icons text-gray-400 text-[18px] mr-2">search</span>
+          <input type="text" placeholder="Search..." class="bg-transparent outline-none text-xs w-full text-[#1e4456]" />
+        </div>
+
+        <button class="relative p-2 text-gray-400 hover:text-[#1e4456] transition-colors cursor-pointer">
+          <span class="material-icons text-[22px]">notifications</span>
+          <span class="absolute top-2 right-2 h-2 w-2 rounded-full bg-red-500 border border-white"></span>
+        </button>
+      </div>
+    </header>
+
+    <div class="p-8">
+        <router-outlet></router-outlet>
+    </div>
+
+
+
+  </main>
+</div>

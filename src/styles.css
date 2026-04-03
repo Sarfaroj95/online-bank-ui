@@ -1,3 +1,50 @@
 /* You can add global styles to this file, and also import other style files */
-
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined');
 @import 'tailwindcss';
+
+@theme {
+  /* The Main Primary Blue */
+  --color-primary: #3F84E5;
+  --color-secondary: #c8fbff;
+  --color-primary-hover: #3269B8;   /* Slightly darker for buttons */
+  --color-primary-light: #EBF2FD;  /* Very soft blue for input backgrounds */
+  
+  /* Complementary / Functional Colors */
+  --color-success: #10B981;        /* Green for 'Login Successful' */
+  --color-error: #EF4444;          /* Red for 'Invalid Credentials' */
+  --color-surface: #F8FAFC;        /* Light grayish-blue for the page background */
+  
+  /* Text colors that match the blue vibe */
+  --color-text-main: #1E293B;      /* Dark blue-slate for headings */
+  --color-text-muted: #64748B;     /* Gray-slate for 'Forget Password' */
+}
+
+
+
+
+
+/* This targets the standard filled icons */
+.material-icons {
+  font-family: 'Material Icons' !important;
+  display: inline-block !important;
+  vertical-align: middle !important;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+}
+
+/* This targets the outlined icons you are using in the header */
+.material-icons-outlined {
+  font-family: 'Material Icons Outlined' !important;
+  display: inline-block !important;
+  vertical-align: middle !important;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+}

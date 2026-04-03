@@ -1,0 +1,79 @@
+@reference "../../../../styles.css";
+
+/* ── SLIDING PILL ───────────────────────────── */
+.sliding-indicator {
+  position: absolute;
+  right: 0;
+  /* Full width minus the nav's left padding (pl-4 = 16px) */
+  width: calc(100% - 16px);
+  /* Must match itemHeight in TS */
+  height: 56px;
+  background-color: #c8fbff;
+  border-radius: 40px 0 0 40px;
+  z-index: 0;
+  pointer-events: none;
+  box-shadow: -5px 0 20px rgba(0, 0, 0, 0.08);
+
+  /* THE slide — smooth between tabs */
+  transition: top 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* Curves that travel with the pill */
+.sliding-indicator::before,
+.sliding-indicator::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  width: 30px;
+  height: 30px;
+  pointer-events: none;
+}
+
+.sliding-indicator::before {
+  top: -30px;
+  border-bottom-right-radius: 30px;
+  box-shadow: 10px 10px 0 10px #c8fbff;
+}
+
+.sliding-indicator::after {
+  bottom: -30px;
+  border-top-right-radius: 30px;
+  box-shadow: 10px -10px 0 10px #c8fbff;
+}
+
+/* ── NAV LINKS ──────────────────────────────── */
+.nav-link {
+  @apply relative flex items-center gap-4 py-4 pl-6 text-sm text-white/60 cursor-pointer;
+  /* Must match itemHeight + space-y-1.5 rhythm */
+  height: 56px;
+  /* Stack above the sliding pill */
+  z-index: 1;
+  transition: color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Exact gap between items — matches space-y-1.5 = 6px */
+  margin-bottom: 6px;
+}
+
+.nav-link:last-child {
+  margin-bottom: 0;
+}
+
+.nav-link:not(.active-text):hover {
+  @apply text-white/90;
+}
+
+/* ── ACTIVE TEXT ────────────────────────────── */
+.active-text {
+  @apply !text-[#1e4456] font-bold;
+}
+
+.active-text .material-icons {
+  transform: scale(1.15) translateX(2px);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Reset icon on inactive */
+.nav-link:not(.active-text) .material-icons {
+  transform: scale(1) translateX(0);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
