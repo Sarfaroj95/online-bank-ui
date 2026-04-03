@@ -49,7 +49,7 @@ export class AdminLoginComponent {
             positionClass: 'toast-top-center',
             tapToDismiss: true,
           });
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/dashboard/overview']);
         } else {
           // --- STOP SPINNER ---
           this.isLoading = false;

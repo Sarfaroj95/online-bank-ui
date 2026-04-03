@@ -1,1 +1,85 @@
-<p>analytics works!</p>
+<div class="p-6 space-y-6">
+  <h2 class="text-xl font-bold text-[#1e4456]">System Transactions</h2>
+
+  <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="w-full text-left border-collapse">
+        <thead>
+          <tr class="bg-gray-50/50 text-[11px] uppercase tracking-widest text-gray-400">
+            <th class="px-6 py-4 font-semibold">ID</th>
+            <th class="px-6 py-4 font-semibold">User</th>
+            <th class="px-6 py-4 font-semibold">Type</th>
+            <th class="px-6 py-4 font-semibold">Amount</th>
+            <th class="px-6 py-4 font-semibold">Date</th>
+            <th class="px-6 py-4 font-semibold">Status</th>
+            <th class="px-6 py-4 font-semibold text-center">Action</th>
+          </tr>
+        </thead>
+        <tbody class="text-sm divide-y divide-gray-50">
+          @for (tx of pagedTransactions; track tx.id) {
+            <tr class="hover:bg-[#f0f4f8] transition-colors group">
+              <td class="px-6 py-4 font-mono text-xs text-gray-400">#{{tx.id}}</td>
+              <td class="px-6 py-4 font-medium text-[#1e4456]">{{tx.userName}}</td>
+              <td class="px-6 py-4">
+                <span class="px-2 py-1 rounded-md text-[10px] font-bold"
+                  [ngClass]="{
+                    'bg-green-50 text-green-600': tx.type === 'Deposit',
+                    'bg-orange-50 text-orange-600': tx.type === 'Withdraw',
+                    'bg-blue-50 text-blue-600': tx.type === 'Transfer'
+                  }">{{tx.type | uppercase}}</span>
+              </td>
+              <td class="px-6 py-4 font-bold text-[#1e4456]">${{tx.amount | number}}</td>
+              <td class="px-6 py-4 text-gray-400 text-xs">{{tx.date | date:'shortDate'}}</td>
+              <td class="px-6 py-4">
+                <div class="flex items-center gap-2">
+                  <span class="h-2 w-2 rounded-full" 
+                    [ngClass]="tx.status === 'Success' ? 'bg-green-500' : tx.status === 'Failed' ? 'bg-red-500' : 'bg-amber-400'">
+                  </span>
+                  <span class="font-medium text-gray-600 text-xs">{{tx.status}}</span>
+                </div>
+              </td>
+              <td class="px-6 py-4 text-center">
+                <button (click)="openAdminModal(tx)" 
+                        class="p-2 bg-gray-50 hover:bg-[#1e4456] hover:text-white rounded-xl transition-all">
+                  <span class="material-icons-outlined text-[18px]">settings</span>
+                </button>
+              </td>
+            </tr>
+          } @empty {
+            <tr><td colspan="7" class="p-20 text-center text-gray-400">No data found.</td></tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <div class="p-4 bg-white border-t border-gray-50 flex justify-between items-center">
+      <button (click)="prevPage()" [disabled]="currentPage === 1" class="p-2 disabled:opacity-30">
+        <span class="material-icons">chevron_left</span>
+      </button>
+      <span class="text-xs font-bold text-gray-400">Page {{currentPage}} of {{totalPages}}</span>
+      <button (click)="nextPage()" [disabled]="currentPage === totalPages" class="p-2 disabled:opacity-30">
+        <span class="material-icons">chevron_right</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+@if (selectedTx) {
+  <div class="fixed inset-0 z-[100] flex items-center justify-center bg-[#1e4456]/40 backdrop-blur-sm">
+    <div class="bg-white rounded-[32px] w-full max-w-sm p-8 shadow-2xl animate-in fade-in zoom-in duration-200">
+      <div class="text-center space-y-4">
+        <div class="h-16 w-16 bg-[#c8fbff] rounded-2xl flex items-center justify-center mx-auto text-[#1e4456]">
+          <span class="material-icons text-3xl">verified_user</span>
+        </div>
+        <h3 class="text-xl font-bold text-[#1e4456]">Admin Approval</h3>
+        <p class="text-sm text-gray-400">Update status for <span class="font-bold text-gray-600">{{selectedTx.userName}}</span>'s transaction of <span class="text-[#1e4456] font-bold">${{selectedTx.amount}}</span>.</p>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4 mt-8">
+        <button (click)="confirmStatusUpdate('Success')" class="bg-green-500 text-white py-3 rounded-2xl font-bold hover:shadow-lg hover:shadow-green-200 transition-all">Approve</button>
+        <button (click)="confirmStatusUpdate('Failed')" class="bg-red-500 text-white py-3 rounded-2xl font-bold hover:shadow-lg hover:shadow-red-200 transition-all">Reject</button>
+      </div>
+      <button (click)="closeModal()" class="w-full mt-4 text-gray-400 text-sm font-medium">Cancel</button>
+    </div>
+  </div>
+}
