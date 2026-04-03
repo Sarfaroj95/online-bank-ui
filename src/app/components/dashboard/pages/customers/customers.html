@@ -7,48 +7,48 @@
     <table class="w-full text-left border-collapse">
       <thead>
         <tr class="bg-gray-50/50 text-[11px] uppercase tracking-widest text-gray-400">
-          <th class="px-6 py-4 font-semibold">ID</th>
-          <th class="px-6 py-4 font-semibold">Fist Name</th>
-          <th class="px-6 py-4 font-semibold">Middle Name</th>
-          <th class="px-6 py-4 font-semibold">Last Name</th>
-          <th class="px-6 py-4 font-semibold">Email</th>
-          <th class="px-6 py-4 font-semibold">Phone</th>
-          <th class="px-6 py-4 font-semibold">Status</th>
-          <th class="px-6 py-4 font-semibold">Verified</th>
-          <th class="px-6 py-4 font-semibold">Active</th>
-          <th class="px-6 py-4 font-semibold">Action</th>
+          <th class="px-6 py-6 font-semibold">ID</th>
+          <th class="px-6 py-6 font-semibold">Fist Name</th>
+          <th class="px-6 py-6 font-semibold">Last Name</th>
+          <th class="px-6 py-6 font-semibold">Email</th>
+          <th class="px-6 py-6 font-semibold">Phone</th>
+          <th class="px-6 py-6 font-semibold">CIF Number</th>
+          <th class="px-6 py-6 font-semibold">Status</th>
+          <th class="px-6 py-6 font-semibold">Verified</th>
+          <th class="px-6 py-6 font-semibold">Active</th>
+          <th class="px-6 py-6 font-semibold">Action</th>
         </tr>
       </thead>
 
       <tbody class="divide-y divide-gray-100">
         @for (user of users; track user.customerId) {
           <tr class="hover:bg-blue-50 transition-colors">
-            <td class="px-6 py-4">
+            <td class="px-6 py-6">
               <span class="text-sm font-medium text-gray-900">
                 {{ user.customerId }}
               </span>
             </td>
-            <td class="px-6 py-4">
+            <td class="px-6 py-6">
               <span class="text-sm font-medium text-gray-900">
                 {{ user.firstName }}
               </span>
             </td>
-            <td class="px-6 py-4 text-sm text-gray-600">
-              {{ user.middleName }}
-            </td>
-            <td class="px-6 py-4 text-sm text-gray-600">
+            <td class="px-6 py-6 text-sm text-gray-600">
               {{ user.lastName }}
             </td>
-            <td class="px-6 py-4 text-sm text-gray-600">
+            <td class="px-6 py-6 text-sm text-gray-600">
               {{ user.email }}
             </td>
-            <td class="px-6 py-4 text-sm text-gray-600">
+            <td class="px-6 py-6 text-sm text-gray-600">
               {{ user.phone }}
             </td>
-              <td class="px-6 py-4 text-sm text-gray-600">
+             <td class="px-6 py-6 text-sm text-gray-600">
+              {{ user.cifNumber }}
+            </td>
+              <td class="px-6 py-6 text-sm text-gray-600">
               {{ user.isVerificationStatus }}
             </td>
-            <td class="px-6 py-4 text-sm text-gray-600">
+            <td class="px-6 py-6 text-sm text-gray-600">
                <span class="px-2 py-1 rounded-md text-[10px] font-bold"
                 [ngClass]="{
                   'bg-green-50 text-green-600': user?.isVerified === true,
@@ -57,7 +57,7 @@
               </span>
             </td>
 
-            <td class="px-6 py-4">
+            <td class="px-6 py-6">
               <span class="px-2 py-1 rounded-md text-[10px] font-bold"
                 [ngClass]="{
                   'bg-green-50 text-green-600': user?.isActive === true,
@@ -65,10 +65,10 @@
                 }">{{user.isActive ? 'ACTIVE' : 'INACTIVE'}}
               </span>
             </td>
-            <td class="px-6 py-4 text-sm text-gray-600">
+            <td class="px-6 py-6 text-sm text-gray-600">
               <button
                 class="px-3 py-1 bg-blue-50 text-dark-600 rounded-md text-[10px] font-bold"
-
+                (click)="openDeleteModal(user)"
               >
                 Approve
               </button>
@@ -86,3 +86,36 @@
   </div>
 </div>
 </div>
+
+
+@if (isModalOpen()) {
+  <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+    <div class="bg-white rounded-xl shadow-2xl max-w-md w-full p-6 transform transition-all scale-100">
+      <div class="flex items-center justify-center w-12 h-12 mx-auto bg-red-100 rounded-full">
+        <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 15c-.77 1.333.192 3 1.732 3z" />
+        </svg>
+      </div>
+
+      <div class="mt-4 text-center">
+        <h3 class="text-lg font-bold text-gray-900">Confirm Deletion</h3>
+        <p class="mt-2 text-sm text-gray-500">
+          Are you sure you want to delete <strong>{{ selectedUser()?.name }}</strong>? This action cannot be undone.
+        </p>
+      </div>
+
+      <div class="mt-6 flex flex-col sm:flex-row gap-3">
+        <button
+          (click)="closeModal()"
+          class="flex-1 px-4 py-6 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 font-medium transition-colors">
+          Cancel
+        </button>
+        <button
+          (click)="confirmDelete()"
+          class="flex-1 px-4 py-6 bg-red-600 text-white rounded-lg hover:bg-red-700 font-medium shadow-sm transition-colors">
+          Delete User
+        </button>
+      </div>
+    </div>
+  </div>
+}

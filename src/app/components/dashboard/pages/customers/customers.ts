@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, signal, computed, effect } from '@angular/core';
 
 @Component({
   selector: 'app-customers',
@@ -44,6 +44,45 @@ export class Customers {
         "isActive": false,
         "createdAt": "2026-04-03T10:21:03.098Z",
         "updatedAt": "2026-04-03T10:21:03.098Z"
+    },
+    {
+        "customerId": 4,
+        "firstName": "Sreedipto",
+        "middleName": "",
+        "lastName": "Roy",
+        "email": "sreedipto@gmail.com",
+        "phone": "8145685658",
+        "dateOfBirth": "1992-09-10T00:00:00.000Z",
+        "aadhaarNumber": "457965888526",
+        "panNumber": "ABCDE4855W",
+        "Address": "Whitefiled, Bangalore, 5660066",
+        "cifNumber": "73558425",
+        "isVerificationStatus": "PENDING",
+        "isVerified": false,
+        "isActive": false,
+        "createdAt": "2026-04-03T21:58:27.212Z",
+        "updatedAt": "2026-04-03T21:58:27.212Z"
     }
 ];
+
+
+// State management
+  isModalOpen = signal(false);
+  selectedUser = signal<any>(null);
+
+  openDeleteModal(user: any) {
+    this.selectedUser.set(user);
+    this.isModalOpen.set(true);
+  }
+
+  closeModal() {
+    this.isModalOpen.set(false);
+  }
+
+  confirmDelete() {
+    const userId = this.selectedUser()?.customerId;
+    this.users = this.users.filter(u => u.customerId !== userId);
+    this.closeModal();
+  }
+
 }
