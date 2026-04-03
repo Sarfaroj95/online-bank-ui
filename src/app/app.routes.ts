@@ -21,13 +21,14 @@ export const routes: Routes = [
   component: DashboardComponent,
   children: [
     // 1. Define all your pages
-    { path: 'overview', component: Overview }, 
-    { path: 'analytics', component: Analytics }, 
-    { path: 'transactions', component: Transactions }, 
+    { path: 'overview', component: Overview },
+    { path: 'analytics', component: Analytics },
+    { path: 'customers', loadComponent: () => import('./components/dashboard/pages/customers/customers').then(m => m.Customers) },
+    { path: 'transactions', component: Transactions },
     { path: 'investment', component: Investment },
 
     // 2. The "Default" fix: Redirect empty child to 'overview'
-    { path: '', redirectTo: 'overview', pathMatch: 'full' } 
+    { path: '', redirectTo: 'overview', pathMatch: 'full' }
   ]
 }
 ];
