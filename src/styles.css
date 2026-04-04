@@ -4,9 +4,9 @@
 
 @theme {
   /* The Main Primary Blue */
-  --color-primary: #3F84E5;
+  --color-primary: #1e4456;
   --color-secondary: #c8fbff;
-  --color-primary-hover: #3269B8;   /* Slightly darker for buttons */
+  --color-primary-hover: #2a5f75;   /* Slightly darker for buttons */
   --color-primary-light: #EBF2FD;  /* Very soft blue for input backgrounds */
   
   /* Complementary / Functional Colors */

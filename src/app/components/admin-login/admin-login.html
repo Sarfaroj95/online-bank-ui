@@ -1,9 +1,9 @@
-<div class="flex min-h-screen items-center justify-center bg-gray-50 p-4 font-sans">
-  <div class="flex w-full max-w-4xl overflow-hidden rounded-lg bg-white shadow-xl h-[550px]">
+<div class="flex min-h-screen items-center justify-center bg-secondary p-4 font-sans">
+  <div class="flex w-full max-w-5xl overflow-hidden rounded-4xl bg-white shadow-xl h-[550px]">
 
     <div class="hidden w-1/2 items-center justify-center border-r border-gray-100 bg-white p-8 md:flex">
       <div class="w-full max-w-[500px]">
-        <img src="https://img.freepik.com/free-vector/privacy-policy-concept-illustration_114360-7853.jpg"
+        <img [src]="'src/assets/Admin_Img.png'"
              alt="Admin Security" class="h-auto w-full object-contain" />
       </div>
     </div>
@@ -24,17 +24,17 @@
           <div class="relative">
             <input type="email" formControlName="email" placeholder="Username"
                    [ngClass]="{'border-error ring-1 ring-error': isFieldInvalid('email'), 'border-primary': !isFieldInvalid('email')}"
-                   class="w-full rounded-md border px-5 py-3 text-sm text-gray-600 outline-none transition-all focus:ring-2 focus:ring-primary-light" />
+                   class="w-full rounded-full border px-5 py-3 text-sm text-gray-600 outline-none transition-all focus:ring-2 focus:ring-primary-light" />
           </div>
 
           <div class="relative">
             <input type="password" formControlName="password" placeholder="Password"
                    [ngClass]="{'border-error ring-1 ring-error': isFieldInvalid('password'), 'border-primary': !isFieldInvalid('password')}"
-                   class="w-full rounded-md border px-5 py-3 text-sm text-gray-600 outline-none transition-all focus:ring-2 focus:ring-primary-light" />
+                   class="w-full rounded-full border px-5 py-3 text-sm text-gray-600 outline-none transition-all focus:ring-2 focus:ring-primary-light" />
           </div>
 
           <button type="submit" [disabled]="isLoading"
-                  class="w-full rounded-md bg-primary py-3 text-sm font-bold tracking-widest text-white transition-all hover:bg-primary-hover active:scale-[0.98] shadow-lg shadow-primary/30 flex justify-center items-center disabled:opacity-70">
+                  class="w-full rounded-full bg-primary py-3 text-sm font-bold tracking-widest text-white transition-all hover:bg-primary-hover active:scale-[0.98] shadow-lg shadow-primary/30 flex justify-center items-center disabled:opacity-70 cursor-pointer">
             <span *ngIf="!isLoading">LOGIN</span>
             <div *ngIf="isLoading" class="h-5 w-5 animate-spin rounded-full border-2 border-white border-t-transparent"></div>
           </button>
